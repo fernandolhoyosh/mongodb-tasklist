@@ -10,7 +10,7 @@ router.post('/tasks', async (req, res) => {
     try {
       await newTask.save();
       console.log('Se ha creado una nueva tarea');
-      res.status(201).json(newTask);
+      res.status(201).json({message: "Tarea agregada correctamente", newTask});
     } catch (err) {
       console.error(err);
       res.status(500).json({message:"Error al insertar el documento", error: err.message});
@@ -26,7 +26,7 @@ router.get('/tasks', async (req, res) => {
     try {
       const documents = await TaskModel.find({});
       console.log('Enviando lista de tareas al cliente');
-      res.status(200).send(documents);
+      res.status(200).json(documents);
     } catch (err) {
       console.log(err);
       res.status(500).json({message:"Error al consultar documentos", error: err.message});
